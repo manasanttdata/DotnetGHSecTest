@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: artifactfile
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: AWSServerless_03/bin/Release/net6.0/publish/api.zip
 
         
       - name: Configure AWS Credentials
