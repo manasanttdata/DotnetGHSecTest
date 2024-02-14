@@ -46,6 +46,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
-       
+      - name: default deploy
+        uses: appleboy/lambda-action@v0.1.9
+        with:
+          function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
+          source: artifactfile
 
       
