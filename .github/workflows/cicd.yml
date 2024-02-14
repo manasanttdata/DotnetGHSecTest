@@ -49,13 +49,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
       - name: default deploy
-        uses: kazimanzurrashid/aws-lambda-update-action@v2.0.2
+        uses: appleboy/lambda-action@v0.1.9
         with:
-          lambda-name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          zip-file:  AWSServerless_03/bin/Release/net6.0/publish/api.zip
-        env:
-          AWS_REGION: eu-north-1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
+          source: AWSServerless_03/bin/Release/net6.0/publish/api.zip
 
-      
