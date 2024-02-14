@@ -33,7 +33,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o AWSServerless_03/bin/Release/net6.0/publish/api.zip
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -49,9 +49,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
       - name: default deploy
-        uses: appleboy/lambda-action@v0.1.9
+        uses: kazimanzurrashid/aws-lambda-update-action@v2.0.2
         with:
-          function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source:  ${{env.DOTNET_ROOT}}/myapp
+          lambda-name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
+          zip-file:  AWSServerless_03/bin/Release/net6.0/publish/api.zip
+        env:
+          AWS_REGION: eu-north-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       
