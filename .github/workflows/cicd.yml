@@ -40,6 +40,8 @@ jobs:
         with:
           name: artifactfile
           path: ${{env.DOTNET_ROOT}}/myapp
+
+        
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -50,6 +52,6 @@ jobs:
         uses: appleboy/lambda-action@v0.1.9
         with:
           function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source: artifactfile
+          source:  ${{env.DOTNET_ROOT}}/myapp
 
       
