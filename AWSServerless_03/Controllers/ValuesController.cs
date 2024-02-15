@@ -16,11 +16,7 @@ public class ValuesController : ControllerBase
     [HttpGet("{id}")]
     public string Get(int id)
     {
-        return "Hello World!
-        
-        Welcome to the Lambda function!
-        
-        Edited line 1";
+        return "Hello World!";
     }
 
     // POST api/values
