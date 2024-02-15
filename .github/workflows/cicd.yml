@@ -34,13 +34,13 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o AWSServerless_03/bin/Release/net6.0/publish/api.zip
+        run: dotnet publish -c Release -o Artifacts/api.zip
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: artifactfile
-          path: AWSServerless_03/bin/Release/net6.0/publish/api.zip
+          path: Artifacts/api.zip
 
         
       - name: Configure AWS Credentials
@@ -49,4 +49,4 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
-      - run: aws lambda update-function-code --function-name=Test-AspNetCoreFunction-QMQIqqnRzdAZ --zip-file=fileb://AWSServerless_03/bin/Release/net6.0/publish/api.zip
+      - run: aws lambda update-function-code --function-name=Test-AspNetCoreFunction-QMQIqqnRzdAZ --zip-file=fileb://Artifacts/api.zip
