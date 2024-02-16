@@ -41,6 +41,11 @@ jobs:
         with:
           name: artifactfile
           path: AWSServerless_03/bin/Release/net6.0/publish
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build
+          path: ./publish
         
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -52,4 +57,4 @@ jobs:
         uses: appleboy/lambda-action@v0.1.9
         with:
           function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source: AWSServerless_03/bin/Release/net6.0/publish  
+          source: 'build'
