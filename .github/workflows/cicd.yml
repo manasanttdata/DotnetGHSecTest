@@ -34,27 +34,22 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o Artifacts/api.zip
+        run: dotnet publish -c Release -o AWSServerless_03/bin/Release/net6.0/publish/api.zip
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: artifactfile
-          path: Artifacts/api.zip
-
-      - name: Make artifact directory
-        run: mkdir -p ./artifacts/${{ github.repository }}
-
-      - name: Create Zip File
-        uses: montudor/action-zip@v0.1.0
+          path: AWSServerless_03/bin/Release/net6.0/publish/api.zip
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          args: zip -r ./artifacts/${{ github.repository }}/${{ github.sha }}.zip ./AWSServerless_03
-
-      - name: Push Zip to S3
-        uses: jakejarvis/s3-sync-action@v0.3.1
-        env:
-          SOURCE_DIR: './artifacts'
-          AWS_REGION: 'eu-north-1'
-          AWS_S3_BUCKET: 's3globelife'
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+      - name: default deploy
+        uses: appleboy/lambda-action@v0.1.9
+        with:
+          function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
+          source: AWSServerless_03/bin/Release/net6.0/publish/api.zip
