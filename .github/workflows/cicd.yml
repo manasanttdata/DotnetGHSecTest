@@ -34,17 +34,19 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish --no-selfcontained --runtime win-x64 -c Release -o ./publish
+          
+      - name: Install Zip
+        uses: montudor/action-zip@v1.0.0
+
+      - name: Zip output
+        run: zip -qq -r ../lambda.zip
+        working-directory: ./publish
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: artifactfile
-          path: AWSServerless_03/bin/Release/net6.0/publish
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: artifactfile
+          name: lambda
           path: ./publish
         
       - name: Configure AWS Credentials
@@ -57,7 +59,7 @@ jobs:
         uses: appleboy/lambda-action@v0.1.9
         with:
           function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source: 'artifactfile'
+          source: lambda.zip
 
 
 
