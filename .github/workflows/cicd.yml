@@ -36,7 +36,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o out
+        run: dotnet publish -c Release -o ./publish
       
       #- name : Zip contents of the folder
        # run: zip -r lambda.zip out
@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: artifactfile
-          path: out
+          path: ./publish
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
