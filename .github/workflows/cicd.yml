@@ -40,8 +40,8 @@ jobs:
       
       - name : Zip contents of the folder
         run: zip -r lambda.zip out
-      - name : copy
-        run: cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip ${GITHUB_WORKSPACE}
+      #- name : copy
+        #run: cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip ${GITHUB_WORKSPACE}
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
