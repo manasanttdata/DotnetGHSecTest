@@ -41,7 +41,7 @@ jobs:
       - name : Zip contents of the folder
         run: zip -r lambda.zip out
       - name : ls
-        run: pwd
+        run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
