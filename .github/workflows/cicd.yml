@@ -39,7 +39,7 @@ jobs:
         run: dotnet publish -c Release -o ./publish
       
       - name : Zip contents of the folder
-        run: zip -r publish.zip ./publish/
+        run: zip -r publish.zip ./publish
       #- name: zip publish
        # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
       - name : ls
