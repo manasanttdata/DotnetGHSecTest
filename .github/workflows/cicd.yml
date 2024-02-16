@@ -44,14 +44,15 @@ jobs:
           name: artifactfile
           path: out
       - name: Create Zip File
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -r ./artifacts/${{ github.repository }}/${{ github.sha }}.zip ./out
+        uses: montudor/action-zip@v1
+      - name: Zip output
+        run: zip qq -r ../lambda.zip
+        working-directory: out
 
       - name: Push Zip to S3
         uses: jakejarvis/s3-sync-action@v0.3.1
         env:
-          SOURCE_DIR: './artifacts'
+          SOURCE_DIR: './lambda.zip'
           AWS_REGION: 'eu-north-1'
           AWS_S3_BUCKET: 's3globelife'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
