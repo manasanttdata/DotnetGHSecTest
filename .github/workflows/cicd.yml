@@ -39,7 +39,7 @@ jobs:
         run: dotnet publish -c Release -o out
       
       - name : Zip contents of the folder
-        run: zip -qq -r out.zip out
+        run: zip -qq -r lambda.zip out
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -50,7 +50,7 @@ jobs:
       - name: Push Zip to S3
         uses: jakejarvis/s3-sync-action@v0.3.1
         env:
-          SOURCE_DIR: 'out.zip'
+          SOURCE_DIR: './lambda.zip'
           AWS_REGION: 'eu-north-1'
           AWS_S3_BUCKET: 's3globelife'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
