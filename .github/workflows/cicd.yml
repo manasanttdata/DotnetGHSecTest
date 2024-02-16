@@ -38,10 +38,10 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ./publish
       
-      #- name : Zip contents of the folder
-       # run: zip -r lambda.zip out
-      - name: zip publish
-        run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
+      - name : Zip contents of the folder
+        run: zip -r Publish.zip ./Publish
+      #- name: zip publish
+       # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
       #- name : ls
        # run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/
       - name: Upload artifact for deployment job
@@ -61,6 +61,6 @@ jobs:
 
       - name: Upload to S3
         run: | 
-          aws s3 cp ./publish s3://s3globelife/SIT/ --recursive
+          aws s3 cp ./Publish.zip s3://s3globelife/SIT/ --recursive
 
 
