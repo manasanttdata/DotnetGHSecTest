@@ -42,7 +42,8 @@ jobs:
         run: zip -r publish.zip ./publish
       #- name: zip publish
        # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
-      #- name : ls
+      - name : ls
+        run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline
        # run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
