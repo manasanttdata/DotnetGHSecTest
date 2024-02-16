@@ -43,18 +43,18 @@ jobs:
         with:
           name: artifactfile
           path: out
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Create Zip File
+        uses: montudor/action-zip@v0.1.0
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-north-1
-      - name: default deploy
-        uses: appleboy/lambda-action@v0.1.9
-        with:
-          function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source: out
+          args: zip -r ./artifacts/${{ github.repository }}/${{ github.sha }}.zip ./out
 
+      - name: Push Zip to S3
+        uses: jakejarvis/s3-sync-action@v0.3.1
+        env:
+          SOURCE_DIR: './artifacts'
+          AWS_REGION: 'eu-north-1'
+          AWS_S3_BUCKET: 's3globelife'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 
