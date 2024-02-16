@@ -34,13 +34,13 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o AWSServerless_03/bin/Release/net6.0/publish/api.zip
+        run: dotnet publish -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: artifactfile
-          path: AWSServerless_03/bin/Release/net6.0/publish/api.zip
+          path: AWSServerless_03/bin/Release/net6.0/publish
         
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -52,4 +52,5 @@ jobs:
         uses: appleboy/lambda-action@v0.1.9
         with:
           function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source: AWSServerless_03/bin/Release/net6.0/publish/api.zip
+          source: AWSServerless_03/bin/Release/net6.0/publish
+          /api.zip
