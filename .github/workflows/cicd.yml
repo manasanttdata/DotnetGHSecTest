@@ -44,7 +44,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: build
+          name: artifactfile
           path: ./publish
         
       - name: Configure AWS Credentials
@@ -57,4 +57,7 @@ jobs:
         uses: appleboy/lambda-action@v0.1.9
         with:
           function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source: 'build'
+          source: 'artifactfile'
+
+
+
