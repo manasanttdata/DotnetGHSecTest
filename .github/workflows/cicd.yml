@@ -42,7 +42,7 @@ jobs:
           name: artifactfile
           path: AWSServerless_03/bin/Release/net6.0/publish
       - name: Download Artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: artifactfile
           path: ./publish
