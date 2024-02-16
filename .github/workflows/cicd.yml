@@ -41,7 +41,7 @@ jobs:
       - name : Zip contents of the folder
         run: zip -r lambda.zip out
       - name : copy
-        run: cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip /github/workspace
+        run: cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip ${GITHUB_WORKSPACE}
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -51,7 +51,7 @@ jobs:
       - name: Push Zip to S3
         uses: jakejarvis/s3-sync-action@v0.3.1
         env:
-          SOURCE_DIR: '/github/workspace/home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip'
+          SOURCE_DIR: '${GITHUB_WORKSPACE}/home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip'
           AWS_REGION: 'eu-north-1'
           AWS_S3_BUCKET: 's3globelife'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
