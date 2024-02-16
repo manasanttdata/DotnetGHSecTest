@@ -30,25 +30,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
             
+     
+   
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ./publish
-          
-      - name: Install Zip
-        uses: montudor/action-zip@v1.0.0
-
-      - name: Zip output
-        run: zip -qq -r ../lambda.zip
-        working-directory: ./publish
+        run: dotnet publish -c Release -o out
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
-          name: lambda
-          path: ./publish
-        
+          name: artifactfile
+          path: out
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -59,7 +54,7 @@ jobs:
         uses: appleboy/lambda-action@v0.1.9
         with:
           function_name: Test-AspNetCoreFunction-QMQIqqnRzdAZ
-          source: lambda.zip
+          source: out
 
 
 
