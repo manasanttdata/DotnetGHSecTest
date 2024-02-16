@@ -38,10 +38,12 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o out
       
-      - name : Zip contents of the folder
-        run: zip -r lambda.zip out
-      - name : copy
-        run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/
+      #- name : Zip contents of the folder
+       # run: zip -r lambda.zip out
+      - name: zip publish
+        run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
+      #- name : ls
+       # run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -54,7 +56,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
 
-      - name: update s3 bucket
-        run: aws s3 cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip s3://s3globelife/lambda.zip --recursive
+     # - name: update s3 bucket
+      #  run: aws s3 cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip s3://s3globelife/lambda.zip --recursive
+
+      - name: Upload to S3
+        run: | 
+          aws s3 cp ./publish s3://s3globelife/SIT/ --recursive
 
 
