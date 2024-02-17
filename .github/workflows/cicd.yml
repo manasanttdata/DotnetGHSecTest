@@ -59,7 +59,6 @@ jobs:
       - name : copy files to artifact folder
         run: |
             cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/publish.zip ./Artifacts
-            cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/artifactfile ./Artifacts
             ls Artifacts
 
       
