@@ -42,13 +42,20 @@ jobs:
         uses: montudor/action-zip@v1
         with:
             args: zip -qq -r publish.zip ./publish
+      - name : ls
+        run: |
+              mkdir Artifacts
       #  run: zip -r publish.zip ./publish
       #- name: zip publish
        # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
+      - name : Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifactfile
+          path: ./Artifacts
       - name : ls
         run: |
-              ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline
-              mkdir Artifacts
+              ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline      
       - name : copy files to artifact folder
         run: |
             cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/publish.zip ./Artifacts
@@ -57,11 +64,7 @@ jobs:
 
       
        # run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/ 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: artifactfile
-          path: ./publish
+      
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
