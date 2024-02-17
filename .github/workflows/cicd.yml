@@ -39,7 +39,10 @@ jobs:
         run: dotnet publish -c Release -o ./publish
       
       - name : Zip contents of the folder
-        run: zip -r publish.zip ./publish
+        uses: montudor/action-zip@v1
+        with:
+            args: zip -qq -r publish.zip ./publish
+      #  run: zip -r publish.zip ./publish
       #- name: zip publish
        # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
       - name : ls
