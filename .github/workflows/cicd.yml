@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: artifactfile
-          path: ./Artifacts
+          path: Artifacts
       - name : ls
         run: |
               ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline      
