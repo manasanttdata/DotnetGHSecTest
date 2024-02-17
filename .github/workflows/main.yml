@@ -40,7 +40,8 @@ jobs:
       
       - name : Zip contents of the folder
         run: | 
-          zip -r publish.zip out
+          cd out;
+          zip -r ../publish.zip *
 
       - name : ls
         run: |
