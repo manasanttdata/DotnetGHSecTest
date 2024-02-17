@@ -1,0 +1,63 @@
+name: CI and CD
+
+env:
+  DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Set up dependency caching for faster builds
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+     
+   
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o out
+      
+      - name : Zip contents of the folder
+        run: zip -r publish.zip out
+      - name : ls
+        run: |
+              mkdir Artifacts
+      #  run: zip -r publish.zip ./publish
+      #- name: zip publish
+       # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
+      - name : Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifactfile
+          path: out
+      - name : ls to check out got created or not
+        run: |
+              ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline      
+      - name : copy files to artifact folder
+        run: |
+            cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/publish.zip ./Artifacts
+            ls Artifacts
+            ls out
+
+         
