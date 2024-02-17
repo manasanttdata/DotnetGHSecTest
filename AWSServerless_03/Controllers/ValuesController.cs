@@ -16,7 +16,7 @@ public class ValuesController : ControllerBase
     [HttpGet("{id}")]
     public string Get(int id)
     {
-        return "Hello World!";
+        return "Hello World! to Globelife";
     }
 
     // POST api/values
