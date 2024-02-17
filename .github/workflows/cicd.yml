@@ -46,11 +46,14 @@ jobs:
       #- name: zip publish
        # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
       - name : ls
-        run: ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline
+        run: |
+              ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline
+              mkdir Artifacts
       - name : copy files to artifact folder
         run: |
             mkdir Artifacts
             cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/publish.zip ./Artifacts
+            cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/artifactfile ./Artifacts
             ls Artifacts
 
       
