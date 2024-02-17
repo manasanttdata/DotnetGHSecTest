@@ -39,7 +39,9 @@ jobs:
         run: dotnet publish -c Release -o out
       
       - name : Zip contents of the folder
-        run: zip -r publish.zip out
+        run: | 
+          zip -r publish.zip out
+
       - name : ls
         run: |
               mkdir Artifacts
@@ -57,9 +59,22 @@ jobs:
       - name : ls to check out contents
         run: |
               ls /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/out    
+     
       - name : copy files to artifact folder
         run: |
             cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/publish.zip ./Artifacts
             ls Artifacts
 
-         
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+
+     # - name: update s3 bucket
+      #  run: aws s3 cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/lambda.zip s3://s3globelife/lambda.zip --recursive
+
+      - name: Upload to S3
+        run: | 
+          aws s3 cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/Artifacts s3://s3globelife/SIT/ --recursive
