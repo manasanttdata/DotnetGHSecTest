@@ -46,9 +46,8 @@ jobs:
       - name : ls
         run: |
               mkdir Artifacts
-      #  run: zip -r publish.zip ./publish
-      #- name: zip publish
-       # run: Compress-Archive -Path ./publish -DestinationPath ./publish/publish.zip
+     
+     
       - name : Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
