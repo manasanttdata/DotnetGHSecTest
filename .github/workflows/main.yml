@@ -1,4 +1,4 @@
-name: CI and CD - successful run
+name: CI and CD - successful run 01
 
 env:
   DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
