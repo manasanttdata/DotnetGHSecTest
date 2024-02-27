@@ -42,6 +42,12 @@ jobs:
         run: | 
           cd out;
           zip -r ../publish.zip *
+
+      - name: copy folders to artifact
+        run: |
+          mkdir Artifacts
+          cp ./publish.zip ./Artifacts
+          cd Artifacts
      
      
       - name : Upload artifact for deployment job
@@ -63,6 +69,6 @@ jobs:
          
       - name: Upload to S3
         run: | 
-          aws s3 cp ./publish.zip s3://s3globelife/SIT/ --recursive
+          aws s3 cp ./Artifacts s3://s3globelife/SIT/ --recursive
           aws lambda update-function-code --function-name Test-AspNetCoreFunction-QMQIqqnRzdAZ --region eu-north-1 --s3-bucket s3globelife --s3-key SIT/publish.zip
 
