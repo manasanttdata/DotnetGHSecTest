@@ -41,7 +41,7 @@ jobs:
       - name : Zip contents of the folder
         run: | 
           cd out;
-          zip -r ../publish.zip *
+          zip -r ../publish-$(date +"%a-%d-%b-%Y-%k-%M-%Z").zip *
 
       - name: copy folders to artifact
         run: |
@@ -70,5 +70,5 @@ jobs:
       - name: Upload to S3
         run: | 
           aws s3 cp ./Artifacts s3://s3globelife/SIT/ --recursive
-          aws lambda update-function-code --function-name Test-AspNetCoreFunction-QMQIqqnRzdAZ --region eu-north-1 --s3-bucket s3globelife --s3-key SIT/publish.zip
+          aws lambda update-function-code --function-name Test-AspNetCoreFunction-QMQIqqnRzdAZ --region eu-north-1 --s3-bucket s3globelife --s3-key SIT/publish-$(date +"%a-%d-%b-%Y-%k-%M-%Z").zip
 
