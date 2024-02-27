@@ -41,12 +41,12 @@ jobs:
       - name : Zip contents of the folder
         run: | 
           cd out;
-          zip -r ../publish-$(date +"%a-%d-%b-%Y-%k-%M-%Z").zip *
+          zip -r ../publish-$(date+"%d-%b-%Y-%k-%M-%Z").zip *
 
       - name: copy folders to artifact
         run: |
           mkdir Artifacts
-          cp ./publish-$(date +"%a-%d-%b-%Y-%k-%M-%Z").zip ./Artifacts
+          cp ./publish-$(date+"%d-%b-%Y-%k-%M-%Z").zip ./Artifacts
           cd Artifacts
      
      
