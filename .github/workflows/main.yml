@@ -63,6 +63,6 @@ jobs:
          
       - name: Upload to S3
         run: | 
-          aws s3 cp /home/runner/work/GLLambdadeploypipeline/GLLambdadeploypipeline/publish.zip s3://s3globelife/SIT/ --recursive
+          aws s3 cp ./publish.zip s3://s3globelife/SIT/ --recursive
           aws lambda update-function-code --function-name Test-AspNetCoreFunction-QMQIqqnRzdAZ --region eu-north-1 --s3-bucket s3globelife --s3-key SIT/publish.zip
 
