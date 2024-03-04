@@ -37,6 +37,7 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+          
       - name: Build and analyze
         env:
           GIT_TOKEN: ${{ secrets.GIT_TOKEN }}  # Needed to get PR information, if any
