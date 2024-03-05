@@ -9,7 +9,7 @@ on:
   
 jobs:
   StaticCodeAnalysis:
-    name: Build and analyze
+    name: StaticCodeAnalysis
     runs-on: windows-latest
     steps:
       - name: Set up JDK 17
