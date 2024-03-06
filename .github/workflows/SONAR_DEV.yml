@@ -1,0 +1,108 @@
+name: CI and CD - successful run 01
+
+env:
+  DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
+
+on:
+  push:
+    branches:
+      - Develop/Sprint-01
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  build_and_release:
+    runs-on: windows-latest
+
+    steps:
+    - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available.
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache SonarCloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v3
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Install SonarCloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+          
+      - name: Build and analyze
+        env:
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"manasanttdata_GLLambdadeploypipeline" /o:"manasanttdata" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build --configuration Release
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Set up dependency caching for faster builds
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+            
+   
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o out
+      
+      - name : Zip contents of the folder
+        run: | 
+          cd out;
+          zip -r ../publish.zip *
+
+      - name: copy folders to artifact
+        run: |
+          mkdir Artifacts
+          cp ./publish.zip ./Artifacts
+          ls Artifacts
+     
+      - name : Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifactfile
+          path: out
+
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+
+     # - name: update function code directly
+      #  run: aws lambda update-function-code --function-name Test-AspNetCoreFunction-QMQIqqnRzdAZ --region eu-north-1 --zip-file fileb://publish.zip
+         
+      - name: Upload to S3
+        run: | 
+          aws s3 cp ./Artifacts s3://s3globelife/SIT/ --recursive
+          aws lambda update-function-code --function-name Glife_Sonar_DEV --region eu-north-1 --s3-bucket s3globelife --s3-key SIT/publish.zip
