@@ -16,7 +16,7 @@ public class ValuesController : ControllerBase
     [HttpGet("{id}")]
     public string Get(int id)
     {
-        return "Hello World!";
+        return "Testing of s3 bucket versioning!";
     }
 
     // POST api/values
