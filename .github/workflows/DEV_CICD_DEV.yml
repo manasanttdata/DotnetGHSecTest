@@ -1,14 +1,14 @@
-name: CI and CD - DEV ENV
+name: DEV_CICD_DEV
 
 env:
   DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
 
 on:
-  push:
+ push:
     branches:
       - Develop/Sprint-01
-  workflow_dispatch:
-
+ workflow_dispatch:
+ 
 jobs:
   build_and_release:
     runs-on: ubuntu-latest
@@ -30,13 +30,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
             
-     
    
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release ./GLLambdadeploypipeline.sln
+
+      - name: Dotnet test
+        run: dotnet test --configuration Release ./AWSProject01/test/AWSProject01.Tests/AWSProject01.Tests.csproj
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o out
+        run: dotnet publish --configuration Release -o out ./AWSProject01/src/AWSProject01/AWSProject01.csproj
       
       - name : Zip contents of the folder
         run: | 
@@ -65,3 +67,8 @@ jobs:
 
       - name: update function code directly
         run: aws lambda update-function-code --function-name Glife_Sonar_DEV --region eu-north-1 --zip-file fileb://publish.zip
+         
+     # - name: Upload to S3
+      #  run: | 
+       #   aws s3 cp ./Artifacts s3://s3globelife/Release_Sprint01/ --recursive
+        #  aws lambda update-function-code --function-name GLife_05 --region eu-north-1 --s3-bucket s3globelife --s3-key Release_Sprint01/publish.zip
