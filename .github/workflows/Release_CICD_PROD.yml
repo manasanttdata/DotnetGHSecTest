@@ -39,7 +39,7 @@ jobs:
         run: dotnet test --configuration Release ./AWSProject01/test/AWSProject01.Tests/AWSProject01.Tests.csproj
 
       - name: dotnet publish
-        run: dotnet publish -configuration Release -o out ./src/AWSProject01/AWSProject01.csproj
+        run: dotnet publish --configuration Release -o out ./src/AWSProject01/AWSProject01.csproj
       
       - name : Zip contents of the folder
         run: | 
