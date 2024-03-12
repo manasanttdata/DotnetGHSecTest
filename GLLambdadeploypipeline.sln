@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AWSProject01", "AWSProject01", "{1C526307-7155-4F26-B0EC-74B5E94FB0DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7A91AC59-D425-4836-AED8-E1F2F6DAE861}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AWSProject01", "AWSProject01\src\AWSProject01\AWSProject01.csproj", "{70F0F8DA-14A3-4205-956C-589AD62320B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7293611F-916D-4326-ACBF-D4156E175A87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AWSProject01.Tests", "AWSProject01\test\AWSProject01.Tests\AWSProject01.Tests.csproj", "{24F01F67-02C6-4476-8F48-A3FEAF25CA43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70F0F8DA-14A3-4205-956C-589AD62320B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F0F8DA-14A3-4205-956C-589AD62320B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F0F8DA-14A3-4205-956C-589AD62320B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F0F8DA-14A3-4205-956C-589AD62320B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F01F67-02C6-4476-8F48-A3FEAF25CA43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24F01F67-02C6-4476-8F48-A3FEAF25CA43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24F01F67-02C6-4476-8F48-A3FEAF25CA43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24F01F67-02C6-4476-8F48-A3FEAF25CA43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7A91AC59-D425-4836-AED8-E1F2F6DAE861} = {1C526307-7155-4F26-B0EC-74B5E94FB0DD}
+		{70F0F8DA-14A3-4205-956C-589AD62320B5} = {7A91AC59-D425-4836-AED8-E1F2F6DAE861}
+		{7293611F-916D-4326-ACBF-D4156E175A87} = {1C526307-7155-4F26-B0EC-74B5E94FB0DD}
+		{24F01F67-02C6-4476-8F48-A3FEAF25CA43} = {7293611F-916D-4326-ACBF-D4156E175A87}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09D35ADC-DA8C-49B3-9851-2F956BE9A4EE}
+	EndGlobalSection
+EndGlobal
