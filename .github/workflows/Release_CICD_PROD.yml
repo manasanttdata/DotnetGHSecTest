@@ -72,4 +72,4 @@ jobs:
       - name: Upload to S3
         run: | 
           aws s3 cp ./Artifacts s3://s3globelife/Release_Sprint01/ --recursive
-          aws lambda update-function-code --function-name Glife_05 --region eu-north-1 --s3-bucket s3globelife --s3-key Release_Sprint01/publish.zip
+          aws lambda update-function-code --function-name GLife_05 --region eu-north-1 --s3-bucket s3globelife --s3-key Release_Sprint01/publish.zip
