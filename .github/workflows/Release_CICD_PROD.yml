@@ -36,7 +36,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Dotnet test
-        run: dotnet test -c Release ./test/AWSProject01.Tests/AWSProject01.Tests.csproj
+        run: dotnet test -c Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o out ./src/AWSProject01/AWSProject01.csproj
