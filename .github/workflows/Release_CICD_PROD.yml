@@ -1,4 +1,4 @@
-name: CI and CD - Release branch
+name: Release_CICD_PROD
 
 env:
   DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
