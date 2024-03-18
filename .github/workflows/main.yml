@@ -26,14 +26,16 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-            
      
    
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release ./GLLambdadeploypipeline.sln
+
+      - name: Dotnet test
+        run: dotnet test -c Release ./test/AWSProject01.Tests/AWSProject01.Tests.csproj
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o out
+        run: dotnet publish -c Release -o out ./src/AWSProject01/AWSProject01.csproj
       
       - name : Zip contents of the folder
         run: | 
