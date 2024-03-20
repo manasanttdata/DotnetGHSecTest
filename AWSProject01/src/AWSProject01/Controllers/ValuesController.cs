@@ -16,7 +16,7 @@ public class ValuesController : ControllerBase
     [HttpGet("{id}")]
     public string Get(int id)
     {
-        return "Test Demo 1";
+        return "Final demo of Sonar Cloud";
     }
 
     // POST api/values
