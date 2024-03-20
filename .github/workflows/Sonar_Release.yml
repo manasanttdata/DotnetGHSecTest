@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - Release/Sprint-01
-  pull_request:
-    types: [opened, synchronize, reopened]
   workflow_dispatch:
   
 jobs:
