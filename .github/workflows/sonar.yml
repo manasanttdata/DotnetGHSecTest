@@ -45,10 +45,3 @@ jobs:
           ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"manasanttdata_DotnetGHSecTest" /o:"manasanttdata" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
           dotnet build
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
-  upload-sarif:
-      name: Upload SARIF to GitHub Code Scanning
-      needs: build
-      runs-on: ubuntu-latest
-      steps:
-      - uses: SonarSource/sonarcloud-github-codescanning@v3
